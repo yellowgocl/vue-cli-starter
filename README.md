@@ -1,6 +1,6 @@
-# color--project
+# vue-cli starter
 
-> i'm color project
+> vue cli starter example project
 
 ## Build Setup
 
