@@ -3,12 +3,16 @@ import { auth } from '@api/'
 import Utils from '@/utils/'
 const { AuthMutationTypes } = MutationTypes
 
-const defaultUserInfo = { name: 'visitor', email: '' }
+//const defaultUserInfo = { name: 'visitor', email: '' }
 const state = {
   isLogin: Utils.session.getAuthenticated(),
   info: Utils.session.getUserInfo()
 }
-
+/**
+ * getters
+ * @type {Object}
+ * auth/{*} 键名作用域区分
+ */
 const getters = {
   'auth/isLogin': (state) => {
     return state.isLogin
@@ -18,9 +22,14 @@ const getters = {
   }
 }
 
+/**
+ * actions
+ * @type {Object}
+ * auth/{*} 键名作用域区分
+ */
 const actions = {
   'auth/login': ({ commit }) => {
-    //u can use commit to call mutation with any types when u defined, commit(ToolbarMutationTypes.LEFT, { left: 'test left' })
+    //异步执行api的登入方法，成功后写入session并通知对应状态变更
     return auth.login().then((data) => {
       commit(AuthMutationTypes.IS_LOGIN, data.flag)
       commit(AuthMutationTypes.INFO, data.info)
@@ -30,6 +39,7 @@ const actions = {
     })
   },
   'auth/logout': ({ commit }) => {
+    //异步执行api的登出方法，成功后写入session并通知对应状态变更
     return auth.logout().then(data => {
       commit(AuthMutationTypes.IS_LOGIN, false)
       commit(AuthMutationTypes.INFO, data.info)
@@ -39,6 +49,11 @@ const actions = {
     })
   }
 }
+
+/**
+ * mutations 改变对应状态
+ * @type {Object}
+ */
 const mutations = {
   [AuthMutationTypes.IS_LOGIN](state, val) {
     state.isLogin = val
