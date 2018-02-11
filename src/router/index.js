@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import animetest from '@/pages/animetest'
 
 import Index from '../pages/'
-import Category from '../pages/category'
 import ErrorPage from '../pages/error'
 import AccountRoute from './account'
 import ProductRoute from './product'
